@@ -1,5 +1,6 @@
 package ru.hse.listify.database.repositories;
 
+import ru.hse.listify.database.models.Item;
 import ru.hse.listify.database.models.ToDoList;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,4 +14,7 @@ import java.util.UUID;
 public interface ToDoListsRepository extends JpaRepository<ToDoList, UUID> {
   @Query(value = "SELECT * FROM lists WHERE :userId = ANY(editor_ids)", nativeQuery = true)
   List<ToDoList> findByEditorIdsContaining(@Param("userId") UUID userId);
+
+  @Query("SELECT i FROM Item i WHERE i.toDoList IN :listIds")
+  List<Item> findByListIdIn(@Param("listIds") List<UUID> listIds);
 }

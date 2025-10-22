@@ -26,9 +26,8 @@ public class ToDoList {
   @Column(nullable = false)
   private String title;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "created_by", nullable = false)
-  private User createdBy;
+  @Column(name = "created_by", nullable = false)
+  private UUID createdBy;
 
   @Column(name = "editor_ids")
   @Builder.Default
@@ -37,9 +36,4 @@ public class ToDoList {
   @CreationTimestamp
   @Column(name = "created_at", updatable = false)
   private LocalDateTime createdAt;
-
-  @OneToMany(mappedBy = "toDoList", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @Builder.Default
-  @ToString.Exclude
-  private List<Item> items = new ArrayList<>();
 }

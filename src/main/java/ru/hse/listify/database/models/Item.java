@@ -21,10 +21,8 @@ public class Item {
   @Column(name = "id", updatable = false, nullable = false)
   private UUID id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "list_id", nullable = false)
   @ToString.Exclude
-  private ToDoList toDoList;
+  private UUID toDoList;
 
   @Column(nullable = false, length = 500)
   private String title;
@@ -33,9 +31,8 @@ public class Item {
   @Builder.Default
   private Boolean isCompleted = false;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "created_by", nullable = false)
-  private User createdBy;
+  @Column(name = "created_by", nullable = false)
+  private UUID createdBy;
 
   @CreationTimestamp
   @Column(name = "created_at", updatable = false)
